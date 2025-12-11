@@ -24,12 +24,7 @@ export default function Header() {
   }, [isLoading, isAuthenticated, path, router]);
 
   // Hide header on dashboard and public profile/post pages
-  if (path.includes("/dashboard")) {
-    return null;
-  }
-
-  // Hide header on public profile and post pages (but not on feed)
-  if (path !== "/" && path !== "/feed" && path.split("/").length >= 2) {
+  if (path.includes("/dashboard") || (path !== "/" && path !== "/feed" && path.split("/").length >= 2)) {
     return null;
   }
 
@@ -98,20 +93,8 @@ export default function Header() {
                 Sign In
               </Button>
             </SignInButton>
-
-            <SignUpButton>
-              <Button variant="primary" size="sm" className="whitespace-nowrap">
-                Get Started
-              </Button>
-            </SignUpButton>
           </Unauthenticated>
         </div>
-
-        {isLoading && (
-          <div className="fixed bottom-0 left-0 w-full z-40 flex justify-center">
-            <BarLoader width={"95%"} color="#D8B4FE" />
-          </div>
-        )}
       </div>
     </header>
   );
